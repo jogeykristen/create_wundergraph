@@ -1,6 +1,7 @@
 import { AppDataSource } from "../../../data-source";
 import { User } from "../../../entities/user.entity";
 import { validateInput } from "./validation";
+import { sendSMS } from "./twilioClient";
 
 export const userService = {
   createUser: async (input: any) => {
@@ -24,6 +25,10 @@ export const userService = {
 
     // Save the new user to the database
     await userRepository.save(newUser);
+    // console.log(Math.floor(100000 + Math.random() * 900000));
+    // const body = Math.floor(100000 + Math.random() * 900000);
+    // const smsBody = `Hi ${input.first_name} ${input.last_name}! Your verification code: ${body}`;
+    // await sendSMS(input.mobile, smsBody);
 
     return newUser;
   },

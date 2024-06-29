@@ -40,6 +40,7 @@
 import { createOperation, z } from "../../generated/wundergraph.factory";
 //import { validateInput } from "../services/validation";
 import { userService } from "../services/userService";
+import { sendSMS } from "../services/twilioClient";
 
 const createUserMutation = createOperation.mutation({
   input: z.object({
@@ -55,7 +56,6 @@ const createUserMutation = createOperation.mutation({
   }),
   handler: async ({ input }) => {
     const newUser = await userService.createUser(input);
-
     return newUser;
   },
 });

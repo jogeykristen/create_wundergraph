@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { CustomerOtp } from "./customerOtp.entity";
 
 @Entity()
 export class User {
@@ -31,4 +32,7 @@ export class User {
 
   @Column({ type: "varchar", nullable: true })
   passport_number?: string;
+
+  @OneToMany(() => CustomerOtp, (otp) => otp.user)
+  otps!: CustomerOtp[];
 }

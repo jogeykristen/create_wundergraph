@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm";
 import { User } from "./entities/user.entity";
+import { CustomerOtp } from "./entities/customerOtp.entity";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,7 +11,7 @@ export const AppDataSource = new DataSource({
   database: "wundergraph_new",
   synchronize: true,
   logging: false,
-  entities: [User],
+  entities: [User, CustomerOtp],
   migrations: ["src/migrations/*.ts"],
   subscribers: [],
 });
