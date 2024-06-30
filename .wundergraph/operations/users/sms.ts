@@ -3,7 +3,7 @@ import { smsService } from "../services/smsService";
 
 const sms = createOperation.mutation({
   input: z.object({
-    mobile: z.string().regex(/^(\+91\d{10}|\d{10})$/),
+    token: z.string(),
   }),
   handler: async ({ input }) => {
     const newUSer = await smsService(input);

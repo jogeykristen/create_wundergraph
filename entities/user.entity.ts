@@ -33,6 +33,9 @@ export class User {
   @Column({ type: "varchar", nullable: true })
   passport_number?: string;
 
+  @Column({ type: "varchar", nullable: true })
+  token!: string;
+
   @OneToMany(() => CustomerOtp, (otp) => otp.user)
   otps!: CustomerOtp[];
 }

@@ -21,6 +21,7 @@ export const userService = {
       is_citizen: input.is_citizen,
       nic_number: input.nic_number,
       passport_number: input.passport_number,
+      token: input.token,
     });
 
     // Save the new user to the database

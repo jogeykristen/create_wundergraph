@@ -53,6 +53,7 @@ const createUserMutation = createOperation.mutation({
     is_citizen: z.boolean(),
     nic_number: z.string().optional(),
     passport_number: z.string().optional(),
+    token: z.string(),
   }),
   handler: async ({ input }) => {
     const newUser = await userService.createUser(input);

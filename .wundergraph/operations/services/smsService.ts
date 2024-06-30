@@ -10,7 +10,7 @@ export const smsService = async (input: any) => {
   const customerOtpRepository = AppDataSource.getRepository(CustomerOtp);
 
   const user = await userRepository.findOne({
-    where: { mobile: input.mobile },
+    where: { token: input.token },
   });
 
   if (!user) {
