@@ -13,7 +13,11 @@ export async function validateInput(input: any) {
 
   // Check if email or mobile already exists in the database
   const existingUser = await userRepository.findOne({
-    where: [{ email: input.email }, { mobile: input.mobile }],
+    where: [
+      { email: input.email },
+      { mobile: input.mobile },
+      { token: input.token },
+    ],
   });
   if (existingUser) {
     throw new Error("Email or mobile number already exists.");

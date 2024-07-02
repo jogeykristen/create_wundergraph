@@ -3,6 +3,7 @@ import { CustomerOtp } from "../../../entities/customerOtp.entity";
 import { User } from "../../../entities/user.entity";
 import { otpGenerator, otpBody } from "./otpService";
 import { sendSMS } from "./twilioClient";
+import { generateToken } from "../../auth/jwt";
 
 export const loginService = {
   login: async (input: any) => {
@@ -25,9 +26,11 @@ export const loginService = {
     });
     await customerOtpRepository.save(newOtp);
 
+    const token = generateToken({ id: user.id, mobile: user.mobile });
     return {
       message: "OTP sent successfully.",
       otp: newOtp, // Optionally return the OTP object or any other necessary data
+      token, // Return the generated token
     };
   },
 };

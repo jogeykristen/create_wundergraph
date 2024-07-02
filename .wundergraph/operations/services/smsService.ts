@@ -2,7 +2,7 @@ import { send } from "process";
 import { AppDataSource } from "../../../data-source";
 import { CustomerOtp } from "../../../entities/customerOtp.entity";
 import { User } from "../../../entities/user.entity";
-import { otpGenerator, otpBody } from "./otpService";
+import { otpGenerator, otpBody, alphaNumericGenerator } from "./otpService";
 import { sendSMS } from "./twilioClient";
 
 export const smsService = async (input: any) => {
@@ -18,7 +18,17 @@ export const smsService = async (input: any) => {
   }
   const otp = otpGenerator();
   const body = otpBody(otp);
+  const token = alphaNumericGenerator();
 
-  await sendSMS(input.mobile, body);
-  return user;
+  const newOtp = customerOtpRepository.create({
+    otp: otp,
+    user: user,
+  });
+  await customerOtpRepository.save(newOtp);
+
+  await sendSMS(input.mobile, token);
+  return {
+    message: "OTP sent successfully.",
+    token: token,
+  };
 };
