@@ -16,7 +16,6 @@ const createUserMutation = createOperation.mutation({
   handler: async ({ input }) => {
     try {
       const newUser = await customerService.createUser(input);
-      console.log("newUser = ", newUser);
       const otp = await smsService(input);
 
       return newUser;
