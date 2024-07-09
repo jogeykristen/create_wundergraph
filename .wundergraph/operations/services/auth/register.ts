@@ -1,4 +1,5 @@
 import axios from "axios";
+import { smsService } from "./smsService";
 
 const API_TOKEN = process.env.API_TOKEN;
 
@@ -10,6 +11,7 @@ export const customerService = {
           "api-token": `${API_TOKEN}`,
         },
       });
+      await smsService(response.data.data);
       return response.data;
     } catch (error: any) {
       throw error.response.data;

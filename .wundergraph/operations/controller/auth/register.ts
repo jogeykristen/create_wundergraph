@@ -1,6 +1,7 @@
 import { createOperation, z } from "../../../generated/wundergraph.factory";
 import { customerService } from "../../services/auth/register";
 import { smsService } from "../../services/auth/smsService";
+import { CustomError } from "../../errors/customErrors";
 
 const createUserMutation = createOperation.mutation({
   input: z.object({
@@ -16,11 +17,14 @@ const createUserMutation = createOperation.mutation({
   handler: async ({ input }) => {
     try {
       const newUser = await customerService.createUser(input);
-      const otp = await smsService(input);
 
       return newUser;
     } catch (error: any) {
-      throw new Error(error.message);
+      if (error.status && error.message) {
+        throw new CustomError(error.message, error.status);
+      } else {
+        throw new CustomError("Unknown error", 500);
+      }
     }
   },
 });
