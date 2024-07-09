@@ -23,7 +23,7 @@ const createUserMutation = createOperation.mutation({
       if (error.status && error.message) {
         throw new CustomError(error.message, error.status);
       } else {
-        throw new CustomError("Unknown error", 500);
+        throw new CustomError(error.message, 500);
       }
     }
   },
